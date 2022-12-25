@@ -1,4 +1,5 @@
 use std::error::Error;
+
 mod query;
 
 use query::query;
