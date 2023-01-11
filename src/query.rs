@@ -51,7 +51,7 @@ pub async fn query() -> Result<(), reqwest::Error> {
         }],
     };
     println!("{:#?}", response_body);
-    println!("");
+    println!();
     println!("Prompt: {}", prompt);
     println!("{}", response_body.choices[0].text);
 
