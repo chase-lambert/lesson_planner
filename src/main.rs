@@ -21,7 +21,7 @@ async fn main() {
         .expect("PORT must be a number");
 
     let addr = std::net::SocketAddr::from(([127, 0, 0, 1], port));
-    println!("listening on {}", addr);
+    println!("listening on {addr}");
 
     let app = Router::new()
         .route("/", get(index))
