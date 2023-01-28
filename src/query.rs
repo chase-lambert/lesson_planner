@@ -20,18 +20,15 @@ pub struct Choice {
     pub finish_reason: String,
 }
 
-pub async fn query() -> Result<(), reqwest::Error> {
-    let prompt = "Build a lesson plan on the third conditional";
-
-    // let api_key = std::env::var("OPEN_AI").unwrap();
-
+#[allow(dead_code)]
+pub async fn run_query(prompt: &str) -> Result<Post, reqwest::Error> {
+    println!("Your prompt: {prompt}");
+    // let api_key = std::env::var("OPEN_AI").expect("No variable found");
     // let client = Client::new();
     // let response_body: Post = client
-    //     .post("https://api.openai.com/v1/completions")
+    //     .post("https://api.openai.com/v1/engines/davinci/completions")
     //     .bearer_auth(api_key)
-    //     .json(
-    //         &serde_json::json!({"model": "text-davinci-003", "prompt": prompt, "max_tokens": 100}),
-    //     )
+    //     .json(&serde_json::json!({"prompt": prompt, "max_tokens": 50}))
     //     .send()
     //     .await?
     //     .json()
@@ -43,17 +40,18 @@ pub async fn query() -> Result<(), reqwest::Error> {
         created: 1626913964,
         model: "davinci:2020-05-03".to_owned(),
         choices: vec![Choice {
-            text: "\n\nObjective \n\nAt the end of this lesson plan, the students should understand the concept and proper use of the third conditional.\n\nEstimated duration\n\n45 minutes\n\nMaterials\n\nHandouts of example sentences, worksheet with fill-in-the-blank exercises \n\nProcedures \n\n1. Introduction (5 minutes)\n\na. Ask the students to name situations where they think the past might be discussed. \n\nb."
+            text: "... I had purple hair. It was a phase,\"I don't miss it because purpl
+    e has a lot of pigment. I mean it doesn't wash out. So again it is a throw away.\"\n\n2.
+    It motivated her to make better"
                 .to_owned(),
             index: 0,
             logprobs: Value::Null,
             finish_reason: "length".to_owned(),
         }],
     };
-    println!("{:#?}", response_body);
-    println!();
-    println!("Prompt: {}", prompt);
-    println!("{}", response_body.choices[0].text);
+    // println!("{:#?}", response_body);
+    // println!("");
+    // println!("Once upon a time {}", response_body.choices[0].text);
 
-    Ok(())
+    Ok(response_body)
 }
