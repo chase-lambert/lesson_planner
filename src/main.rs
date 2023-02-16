@@ -1,7 +1,7 @@
 mod query;
 mod template;
 
-use template::index;
+use template::{index, post_query, show_form};
 
 use axum::{
     // extract,
@@ -32,6 +32,7 @@ async fn main() {
 
     let app = Router::new()
         .route("/", get(index))
+        .route("/query", get(show_form).post(post_query))
         .merge(SpaRouter::new("/static", "static").index_file("templates/index.html"));
 
     tracing::debug!("listening on {addr}");
