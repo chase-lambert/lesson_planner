@@ -23,7 +23,7 @@ pub struct Choice {
 #[allow(dead_code)]
 pub async fn run_query(prompt: &str) -> Result<Post, reqwest::Error> {
     println!("Your prompt: {prompt}");
-    let api_key = std::env::var("OPEN_AI").expect("No variable found");
+    let api_key = std::env::var("OPENAI_API_KEY").expect("No variable found");
     let client = Client::new();
     let params = &serde_json::json!({"model": "text-ada-001", "prompt": prompt, "max_tokens": 100});
     let response_body: Post = client
