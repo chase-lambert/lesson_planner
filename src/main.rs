@@ -9,7 +9,7 @@ use axum::{
     routing::get,
     Router,
 };
-use axum_extra::routing::SpaRouter;
+use tower_http::services::{ServeDir, ServeFile};
 // use query::run_query;
 // use serde::Deserialize;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
@@ -33,7 +33,10 @@ async fn main() {
     let app = Router::new()
         .route("/", get(index))
         .route("/query", get(show_form).post(post_query))
-        .merge(SpaRouter::new("/static", "static").index_file("templates/index.html"));
+        .nest_service(
+            "/static",
+            ServeDir::new("static").not_found_service(ServeFile::new("templates/index.html")),
+        );
 
     tracing::debug!("listening on {addr}");
 
