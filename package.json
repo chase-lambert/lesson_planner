@@ -12,6 +12,6 @@
     "tailwind-watch": "postcss static/tailwind.css -o static/main.css --verbose -w",
     "cargo-watch": "cargo watch -x 'run'",
     "dev": "concurrently --kill-others \"npm run tailwind-watch\" \"npm run cargo-watch\"" ,
-    "release": "postcss static/tailwind.css -o static/main.css --verbose & cargo build --release"
+    "release": "postcss static/tailwind.css -o static/main.css --verbose"
   }
 }
