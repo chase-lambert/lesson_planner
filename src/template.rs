@@ -28,11 +28,11 @@ where
 }
 
 #[derive(Template)]
-#[template(path = "index.html")]
-pub struct IndexTemplate;
+#[template(path = "landing.html")]
+pub struct LandingTemplate;
 
-pub async fn index() -> impl IntoResponse {
-    let template = IndexTemplate;
+pub async fn landing() -> impl IntoResponse {
+    let template = LandingTemplate;
     HtmlTemplate(template)
 }
 

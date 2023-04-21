@@ -1,7 +1,7 @@
 mod query;
 mod template;
 
-use template::{index, post_query, show_form};
+use template::*;
 
 use axum::{
     // extract,
@@ -31,11 +31,13 @@ async fn main() {
     let addr = std::net::SocketAddr::from(([127, 0, 0, 1], port));
 
     let app = Router::new()
-        .route("/", get(index))
+        .route("/", get(landing))
         .route("/query", get(show_form).post(post_query))
         .nest_service(
             "/static",
-            ServeDir::new("static").not_found_service(ServeFile::new("templates/index.html")),
+            ServeDir::new("static")
+                .precompressed_gzip()
+                .not_found_service(ServeFile::new("templates/landing.html")),
         );
 
     tracing::debug!("listening on {addr}");
