@@ -1,4 +1,5 @@
 mod query;
+mod routes;
 mod template;
 
 use template::*;
@@ -32,6 +33,8 @@ async fn main() {
 
     let app = Router::new()
         .route("/", get(public::landing))
+        .merge(routes::public_routes())
+        .merge(routes::authenticated_routes())
         // .route(
         //     "/query",
         //     get(authenticated::show_form).post(authenticated::post_query),

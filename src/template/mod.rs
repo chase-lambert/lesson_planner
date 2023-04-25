@@ -14,10 +14,10 @@ pub use serde::Deserialize;
 #[template(path = "base.html")]
 pub struct BaseTemplate;
 
-pub async fn base() -> impl IntoResponse {
-    let template = BaseTemplate;
-    HtmlTemplate(template)
-}
+// pub async fn base() -> impl IntoResponse {
+//     let template = BaseTemplate;
+//     HtmlTemplate(template)
+// }
 
 struct HtmlTemplate<T>(T);
 

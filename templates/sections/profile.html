@@ -3,7 +3,7 @@
 {% block navbar %}
 <div class="navbar bg-base-100">
   <div class="flex-1">
-    <a class="btn btn-ghost normal-case text-2xl">LessonPlanner.AI</a>
+    <a href="/classes" class="btn btn-ghost normal-case text-2xl">LessonPlanner.AI</a>
   </div>
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">
@@ -15,8 +15,6 @@
 </div>
 {% endblock %}
 
-{% block authenticated %}{% endblock %}
-
-{% block content %}
+{% block authenticated %}
 <h1 class="text-3xl font-extrabold">Profile</h1>
 {% endblock %}

@@ -4,10 +4,10 @@ use super::*;
 #[template(path = "auth/public.html")]
 pub struct PublicTemplate;
 
-pub async fn public() -> impl IntoResponse {
-    let template = PublicTemplate;
-    HtmlTemplate(template)
-}
+// pub async fn public() -> impl IntoResponse {
+//     let template = PublicTemplate;
+//     HtmlTemplate(template)
+// }
 
 #[derive(Template)]
 #[template(path = "sections/landing.html")]
