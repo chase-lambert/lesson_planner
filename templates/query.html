@@ -1,6 +1,6 @@
-{% extends "base.html" %} 
+{% extends "auth/authenticated.html" %}
 
-{% block content %}
-<p>Prompt:  {{ prompt }} </p>
+{% block authenticated %}
+<p>Prompt: {{ prompt }} </p>
 <p>Results: {{ response }}</p>
 {% endblock %}

@@ -31,14 +31,18 @@ async fn main() {
     let addr = std::net::SocketAddr::from(([127, 0, 0, 1], port));
 
     let app = Router::new()
-        .route("/", get(landing))
-        .route("/query", get(show_form).post(post_query))
+        .route("/", get(public::landing))
+        .route(
+            "/query",
+            get(authenticated::show_form).post(authenticated::post_query),
+        )
         .nest_service(
             "/static",
             ServeDir::new("static")
                 .precompressed_gzip()
-                .not_found_service(ServeFile::new("templates/landing.html")),
+                .not_found_service(ServeFile::new("templates/sections/landing.html")),
         );
+    // .layer(tower_livereload::LiveReloadLayer::new());
 
     tracing::debug!("listening on {addr}");
 

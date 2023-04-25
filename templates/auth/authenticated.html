@@ -1,0 +1,16 @@
+{% extends "../base.html" %}
+
+<div class="navbar bg-base-100">
+  <div class="flex-1">
+    <a class="btn btn-ghost normal-case text-xl">LessonPlanner.AI</a>
+  </div>
+  <div class="flex-none">
+    <ul class="menu menu-horizontal px-1">
+      <li><a>Classes</a></li>
+      <li><a>Lessons</a></li>
+      <li><a>Profiles</a></li>
+    </ul>
+  </div>
+</div>
+
+{% block authenticated %}{% endblock %}

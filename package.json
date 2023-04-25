@@ -9,9 +9,10 @@
     "tailwindcss": "^3.2.6"
   },
   "scripts": {
+    "clean": "rm -rf ./static/main.css ./static/main.css.gz",
     "tailwind-watch": "postcss static/tailwind.css -o static/main.css --verbose -w",
     "cargo-watch": "cargo watch -x 'run'",
-    "dev": "concurrently --kill-others \"npm run tailwind-watch\" \"npm run cargo-watch\"" ,
-    "release": "postcss static/tailwind.css -o static/main.css --verbose"
+    "dev": "npm run clean && concurrently --kill-others \"npm run tailwind-watch\" \"npm run cargo-watch\" ",
+    "release": "npm run clean && postcss static/tailwind.css -o static/main.css --verbose"
   }
 }
