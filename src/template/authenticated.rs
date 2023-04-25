@@ -1,40 +1,67 @@
 use super::*;
-use crate::query::run_query;
+// use crate::query::run_query;
 
 #[derive(Template)]
-#[template(path = "form.html")]
-struct FormTemplate;
+#[template(path = "auth/authenticated.html")]
+pub struct AuthenticatedTemplate;
 
-pub async fn show_form() -> impl IntoResponse {
-    let template = FormTemplate;
+pub async fn authenticated() -> impl IntoResponse {
+    let template = AuthenticatedTemplate;
     HtmlTemplate(template)
 }
 
-#[derive(Deserialize, Debug)]
-pub struct Prompt {
-    prompt: String,
+#[derive(Template)]
+#[template(path = "sections/classes.html")]
+struct ClassesTemplate;
+
+pub async fn classes() -> impl IntoResponse {
+    let template = ClassesTemplate;
+    HtmlTemplate(template)
 }
 
-#[derive(Deserialize, Debug, Default, Template)]
-#[template(path = "query.html")]
-#[allow(dead_code)]
-pub struct QueryTemplate {
-    prompt: String,
-    response: String,
+#[derive(Template)]
+#[template(path = "sections/lessons.html")]
+struct LessonsTemplate;
+
+pub async fn lessons() -> impl IntoResponse {
+    let template = LessonsTemplate;
+    HtmlTemplate(template)
 }
 
-pub async fn post_query(Form(input): Form<Prompt>) -> impl IntoResponse {
-    let response = run_query(&input.prompt).await;
-    let response = &response.unwrap().choices[0].text;
+// #[derive(Template)]
+// #[template(path = "form.html")]
+// struct FormTemplate;
 
-    let template = QueryTemplate {
-        prompt: input.prompt,
-        response: response.to_owned(),
-    };
+// pub async fn show_form() -> impl IntoResponse {
+//     let template = FormTemplate;
+//     HtmlTemplate(template)
+// }
 
-    show_query(template).await
-}
+// #[derive(Deserialize, Debug)]
+// pub struct Prompt {
+//     prompt: String,
+// }
 
-async fn show_query(query: QueryTemplate) -> impl IntoResponse {
-    HtmlTemplate(query)
-}
+// #[derive(Deserialize, Debug, Default, Template)]
+// #[template(path = "query.html")]
+// #[allow(dead_code)]
+// pub struct QueryTemplate {
+//     prompt: String,
+//     response: String,
+// }
+
+// pub async fn post_query(Form(input): Form<Prompt>) -> impl IntoResponse {
+//     let response = run_query(&input.prompt).await;
+//     let response = &response.unwrap().choices[0].text;
+
+//     let template = QueryTemplate {
+//         prompt: input.prompt,
+//         response: response.to_owned(),
+//     };
+
+//     show_query(template).await
+// }
+
+// async fn show_query(query: QueryTemplate) -> impl IntoResponse {
+//     HtmlTemplate(query)
+// }

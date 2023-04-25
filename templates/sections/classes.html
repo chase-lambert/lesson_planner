@@ -1,5 +1,22 @@
-{% extends "authenticated.html" %}
+{% extends "auth/authenticated.html" %}
+
+{% block navbar %}
+<div class="navbar bg-base-100">
+  <div class="flex-1">
+    <a class="btn btn-ghost normal-case text-2xl">LessonPlanner.AI</a>
+  </div>
+  <div class="flex-none">
+    <ul class="menu menu-horizontal px-1">
+      <li><a href="/classes" class="underline decoration-2 underline-offset-8">Classes</a></li>
+      <li><a href="/lessons">Lessons</a></li>
+      <li><a href="/profile">Profile</a></li>
+    </ul>
+  </div>
+</div>
+{% endblock %}
+
+{% block authenticated %}{% endblock %}
 
 {% block content %}
-<h1 class="text-3xl font-extrabold">Hello, World!</h1>
+<h1 class="text-3xl font-extrabold">Classes</h1>
 {% endblock %}

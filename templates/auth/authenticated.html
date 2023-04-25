@@ -1,16 +1,22 @@
 {% extends "../base.html" %}
 
+{% block content %}
+
+{% block navbar %}
 <div class="navbar bg-base-100">
   <div class="flex-1">
     <a class="btn btn-ghost normal-case text-xl">LessonPlanner.AI</a>
   </div>
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">
-      <li><a>Classes</a></li>
+      <li><a href="/log-in" class="underline decoration-2 underline-offset-8">Classes</a></li>
       <li><a>Lessons</a></li>
       <li><a>Profiles</a></li>
     </ul>
   </div>
 </div>
+{% endblock %}
 
 {% block authenticated %}{% endblock %}
+
+{% endblock %}

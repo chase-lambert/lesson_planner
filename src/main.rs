@@ -32,10 +32,10 @@ async fn main() {
 
     let app = Router::new()
         .route("/", get(public::landing))
-        .route(
-            "/query",
-            get(authenticated::show_form).post(authenticated::post_query),
-        )
+        // .route(
+        //     "/query",
+        //     get(authenticated::show_form).post(authenticated::post_query),
+        // )
         .nest_service(
             "/static",
             ServeDir::new("static")
