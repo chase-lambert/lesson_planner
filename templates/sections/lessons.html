@@ -16,5 +16,16 @@
 {% endblock %}
 
 {% block authenticated %}
-<h1 class="text-3xl font-extrabold">Lessons</h1>
+<h1 class="text-3xl font-extrabold text-center">Lessons</h1>
 {% endblock %}
+
+<form action="/query" method="post">
+  <label for="prompt">
+    Enter your prompt:
+    <input type="text" name="prompt">
+  </label>
+  <input type="submit" value="Submit">
+</form>
+
+<p>Prompt: {{ prompt }} </p>
+<p>Results: {{ response }}</p>

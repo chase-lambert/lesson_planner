@@ -1,4 +1,5 @@
 pub mod authenticated;
+pub mod lessons;
 pub mod public;
 
 pub use askama::Template;
