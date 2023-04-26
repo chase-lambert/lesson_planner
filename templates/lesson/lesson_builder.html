@@ -1,21 +1,15 @@
-{% extends "auth/authenticated.html" %} {% block navbar %}
-<div class="navbar bg-base-100">
-  <div class="flex-1">
-    <a href="/classes" class="btn btn-ghost normal-case text-2xl">LessonPlanner.ai</a>
-  </div>
-  <div class="flex-none">
-    <ul class="menu menu-horizontal px-1">
-      <li><a href="/classes">Classes</a></li>
-      <li>
-        <a href="/lesson_builder" class="underline decoration-2 underline-offset-8">Lessons</a>
-      </li>
-      <li><a href="/profile">Profile</a></li>
-    </ul>
-  </div>
-</div>
+{% extends "auth/authenticated.html" %}
+
+{% block navbar %}
+<nav class="">
+  <a href="/classes" class="">LessonPlanner.ai</a>
+  <a href="/classes" class="">Classes</a>
+  <a href="/lesson_builder">Lessons</a>
+  <a href="/profile">Profile</a>
+</nav>
 {% endblock %} {% block authenticated %}
 
-<h1 class="text-3xl font-extrabold text-center">Lesson Builder</h1>
+<h2 class="">Lesson Builder</h2>
 
 <form action="/lesson_viewer" method="post">
   <label for="prompt">

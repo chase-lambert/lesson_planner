@@ -1,20 +1,14 @@
 {% extends "auth/public.html" %}
 
 {% block navbar %}
-<div class="navbar bg-base-100">
-  <div class="flex-1">
-    <a href="/" class="btn btn-ghost normal-case text-2xl">LessonPlanner.ai</a>
-  </div>
-  <div class="flex-none">
-    <ul class="menu menu-horizontal px-1">
-      <li><a href="/demo">Demo</a></li>
-      <li><a href="/signup" class="underline decoration-2 underline-offset-8">Sign up</a></li>
-      <li><a href="/login">Log in</a></li>
-    </ul>
-  </div>
-</div>
+<nav class="navbar bg-base-100">
+  <a href="/" class="">LessonPlanner.ai</a>
+  <a href="/demo">Demo</a>
+  <a href="/signup">Sign up</a>
+  <a href="/login">Log in</a>
+</nav>
 {% endblock %}
 
 {% block public %}
-<h1 class="text-3xl font-extrabold text-center">Sign Up</h1>
+<h2 class="">Sign Up</h2>
 {% endblock %}
