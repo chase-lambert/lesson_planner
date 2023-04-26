@@ -3,8 +3,7 @@
 {% block navbar %}
 <div class="navbar bg-base-100">
   <div class="flex-1">
-    <a href="/landing"
-      class="btn btn-ghost normal-case text-2xl underline decoration-2 underline-offset-8">LessonPlanner.AI</a>
+    <a href="/landing" class="btn btn-ghost normal-case text-2xl">LessonPlanner.ai</a>
   </div>
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">
@@ -17,5 +16,23 @@
 {% endblock %}
 
 {% block public %}
-<h1 class="text-3xl font-extrabold text-center">Log In</h1>
+<h2 class="text-3xl font-extrabold text-center">Log In</h2>
+<div class="flex flex-col items-center justify-center px-4">
+  <div class="form-control">
+    <label class="input-group input-group-md">
+      <span class="label-text">Email</span>
+      <input type="email" id="email" values="">
+    </label>
+  </div>
+  <div class="form-control">
+    <label class="input-group input-group-md">
+      <span class="label-text">Password</span>
+      <input type="password" id="email" values="">
+    </label>
+  </div>
+  <a href="/signup">New to LessonPlanner.ai? Create an account!</a>
+  <div>
+    <button class="btn btn-square">Log In</button>
+  </div>
+</div>
 {% endblock %}

@@ -7,8 +7,8 @@
   </div>
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">
-      <li><a href="/classes" class="underline decoration-2 underline-offset-8">Classes</a></li>
-      <li><a href="/lesson_builder">Lessons</a></li>
+      <li><a href="/classes">Classes</a></li>
+      <li><a href="/lesson_builder" class="underline decoration-2 underline-offset-8">Lessons</a></li>
       <li><a href="/profile">Profile</a></li>
     </ul>
   </div>
@@ -16,5 +16,9 @@
 {% endblock %}
 
 {% block authenticated %}
-<h1 class="text-3xl font-extrabold text-center">Classes</h1>
+<h1 class="text-3xl font-extrabold text-center">Lesson Viewer</h1>
+
+<p>Prompt: {{ prompt }} </p>
+<p>Results: {{ response }}</p>
+
 {% endblock %}
