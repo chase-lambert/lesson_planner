@@ -1,3 +1,5 @@
 #!/bin/bash
-gzip -kfv static/main.css
+npm install
+npm run release
+# gzip -kfv static/main.css
 cargo build --release 

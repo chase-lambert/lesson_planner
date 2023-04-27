@@ -1,16 +1,22 @@
 {% extends "auth/authenticated.html" %}
 
 {% block navbar %}
-<nav>
-  <a href="/classes">LessonPlanner.ai</a>
-  <a href="/classes">Classes</a>
-  <a href="/lesson_builder">Lessons</a>
-  <a href="/profile">Profile</a>
-</nav>
+<div class="navbar bg-base-100">
+  <div class="flex-1">
+    <a href="/classes" class="btn btn-ghost normal-case text-2xl">LessonPlanner.ai</a>
+  </div>
+  <div class="flex-none">
+    <ul class="menu menu-horizontal px-1">
+      <li><a href="/classes">Classes</a></li>
+      <li><a href="/lesson" class="underline decoration-2 underline-offset-8">Lessons</a></li>
+      <li><a href="/profile">Profile</a></li>
+    </ul>
+  </div>
+</div>
 {% endblock %}
 
 {% block authenticated %}
-<h2>Lesson Viewer</h2>
+<h2 class="text-2xl font-extrabold text-center">Lesson</h2>
 
 <p>Prompt: {{ prompt }} </p>
 <p>Results: {{ response }}</p>
