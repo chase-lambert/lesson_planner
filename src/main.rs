@@ -29,7 +29,7 @@ async fn main() {
         .unwrap_or_else(|_| "4000".to_string())
         .parse()
         .expect("PORT must be a number");
-    let addr = std::net::SocketAddr::from(([127, 0, 0, 1], port));
+    let addr = std::net::SocketAddr::from(([0, 0, 0, 0], port));
 
     let app = Router::new()
         .route("/", get(public::landing))
