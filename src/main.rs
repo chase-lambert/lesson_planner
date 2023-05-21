@@ -37,10 +37,6 @@ async fn main() {
         .route("/", get(public::landing))
         .merge(routes::public_routes())
         .merge(routes::authenticated_routes())
-        // .route(
-        //     "/query",
-        //     get(authenticated::show_form).post(authenticated::post_query),
-        // )
         .nest_service(
             "/static",
             ServeDir::new("static")

@@ -3,13 +3,13 @@ use reqwest::Client;
 
 use crate::template::*;
 
-#[derive(Deserialize)]
-struct ChatRequest {
+#[derive(Clone, Deserialize)]
+pub struct ChatRequest {
     choices: Vec<Choice>,
 }
 
-#[derive(Deserialize)]
-struct Choice {
+#[derive(Clone, Deserialize)]
+pub struct Choice {
     message: Message,
 }
 
