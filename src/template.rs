@@ -1,7 +1,9 @@
 pub mod authenticated;
+pub mod chat;
 pub mod lessons;
 pub mod public;
 
+pub use crate::{MyError, Result};
 pub use askama::Template;
 pub use axum::{
     // extract,
@@ -9,7 +11,7 @@ pub use axum::{
     http::StatusCode,
     response::{Html, IntoResponse, Response},
 };
-pub use serde::Deserialize;
+pub use serde::{Deserialize, Serialize};
 
 #[derive(Template)]
 #[template(path = "base.html")]

@@ -20,7 +20,7 @@ pub struct Choice {
     pub finish_reason: String,
 }
 
-#[allow(dead_code)]
+// #[allow(dead_code)]
 pub async fn run_query(prompt: &str) -> Result<Post, reqwest::Error> {
     println!("Your prompt: {prompt}");
     let api_key = std::env::var("OPENAI_API_KEY").expect("No variable found");

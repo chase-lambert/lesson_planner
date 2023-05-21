@@ -1,8 +1,9 @@
+mod error;
 mod query;
 mod routes;
 mod template;
 
-use template::*;
+pub use self::error::{MyError, Result};
 
 use axum::{
     // extract,
@@ -10,6 +11,7 @@ use axum::{
     routing::get,
     Router,
 };
+use template::*;
 use tower_http::services::{ServeDir, ServeFile};
 // use query::run_query;
 // use serde::Deserialize;

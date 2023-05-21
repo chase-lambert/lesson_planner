@@ -12,7 +12,8 @@
     "clean": "rm -rf ./static/main.css ./static/main.css.gz",
     "tailwind-watch": "postcss static/tailwind.css -o static/main.css --verbose -w",
     "cargo-watch": "cargo watch -x 'run'",
-    "dev": "npm run clean && concurrently --kill-others \"npm run tailwind-watch\" \"npm run cargo-watch\" ",
+    "predev": "npm run clean && postcss static/tailwind.css -o static/main.css --verbose",
+    "dev": "gzip -kfv static/main.css && concurrently --kill-others \"npm run tailwind-watch\" \"npm run cargo-watch\" ",
     "release": "npm run clean && postcss static/tailwind.css -o static/main.css --verbose"
   }
 }
