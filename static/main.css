@@ -2704,9 +2704,6 @@ html {
 .h-64 {
   height: 16rem;
 }
-.min-h-screen {
-  min-height: 100vh;
-}
 .w-full {
   width: 100%;
 }
@@ -2730,9 +2727,6 @@ html {
 }
 .grid-cols-2 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
-}
-.flex-col {
-  flex-direction: column;
 }
 .items-center {
   align-items: center;
