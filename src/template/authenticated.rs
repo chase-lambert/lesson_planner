@@ -2,16 +2,7 @@ use super::*;
 // use crate::query::run_query;
 
 #[derive(Template)]
-#[template(path = "auth/authenticated.html")]
-pub struct AuthenticatedTemplate;
-
-// pub async fn authenticated() -> impl IntoResponse {
-//     let template = AuthenticatedTemplate;
-//     HtmlTemplate(template)
-// }
-
-#[derive(Template)]
-#[template(path = "sections/classes.html")]
+#[template(path = "classes.html")]
 struct ClassesTemplate;
 
 pub async fn classes() -> impl IntoResponse {
@@ -20,7 +11,7 @@ pub async fn classes() -> impl IntoResponse {
 }
 
 #[derive(Template)]
-#[template(path = "sections/profile.html")]
+#[template(path = "profile.html")]
 struct ProfileTemplate;
 
 pub async fn profile() -> impl IntoResponse {

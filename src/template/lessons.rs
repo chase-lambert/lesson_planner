@@ -1,8 +1,8 @@
+use super::*;
 use crate::query::run_query;
-use crate::template::*;
 
 #[derive(Template)]
-#[template(path = "lesson/lesson_builder.html")]
+#[template(path = "lesson_builder.html")]
 struct LessonBuilder;
 
 pub async fn lesson_builder() -> impl IntoResponse {
@@ -11,7 +11,7 @@ pub async fn lesson_builder() -> impl IntoResponse {
 }
 
 #[derive(Deserialize, Template)]
-#[template(path = "lesson/lesson_viewer.html")]
+#[template(path = "lesson_viewer.html")]
 struct LessonViewerTemplate {
     prompt: String,
     response: String,

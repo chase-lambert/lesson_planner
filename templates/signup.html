@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+<div class="navbar bg-base-100 container">
+  <div class="flex-1">
+    <a href="/" class="btn btn-ghost normal-case text-2xl">LessonPlanner.ai</a>
+  </div>
+  <div class="flex-none">
+    <ul class="menu menu-horizontal px-1">
+      <li><a href="/demo">Demo</a></li>
+      <li><a href="/signup" class="underline decoration-2 underline-offset-8">Sign up</a></li>
+      <li><a href="/login">Log in</a></li>
+    </ul>
+  </div>
+</div>
+{% endblock %}
+
+{% block main %}
+<div class="container mx-auto">
+  <h2 class="text-2xl font-extrabold text-center mb-4">Sign Up</h2>
+
+  <main class="bg-gray-100 flex items-center justify-center py-20">
+    <div class="max-w-md w-full bg-white rounded-lg overflow-hidden shadow-md p-6">
+      <form>
+        <div class="mb-6">
+          <label for="first-name" class="block mb-2 text-sm text-gray-800">First Name</label>
+          <input type="text" id="first-name" class="form-input w-full" placeholder="Enter your first name">
+        </div>
+        <div class="mb-6">
+          <label for="last-name" class="block mb-2 text-sm text-gray-800">Last Name</label>
+          <input type="text" id="last-name" class="form-input w-full" placeholder="Enter your last name">
+        </div>
+        <div class="mb-6">
+          <label for="email" class="block mb-2 text-sm text-gray-800">Email</label>
+          <input type="email" id="email" class="form-input w-full" placeholder="Enter your email">
+        </div>
+        <div class="mb-6">
+          <label for="password" class="block mb-2 text-sm text-gray-800">Password</label>
+          <input type="password" id="password" class="form-input w-full" placeholder="Enter your password">
+        </div>
+        <div class="mb-6">
+          <label for="password" class="block mb-2 text-sm text-gray-800">Confirm Password</label>
+          <input type="password" id="password" class="form-input w-full" placeholder="Enter your password">
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">Sign Up</button>
+        </div>
+      </form>
+      <p class="mt-4 text-sm text-center text-gray-600">
+        Already a member? <a href="/login" class="text-blue-500">Log in!</a>
+      </p>
+    </div>
+  </main>
+</div>
+{% endblock %}

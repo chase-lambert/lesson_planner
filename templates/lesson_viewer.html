@@ -1,7 +1,7 @@
-{% extends "auth/authenticated.html" %}
+{% extends "base.html" %}
 
 {% block navbar %}
-<div class="navbar bg-base-100">
+<div class="navbar bg-base-100 container">
   <div class="flex-1">
     <a href="/classes" class="btn btn-ghost normal-case text-2xl">LessonPlanner.ai</a>
   </div>
@@ -15,7 +15,7 @@
 </div>
 {% endblock %}
 
-{% block authenticated %}
+{% block main %}
 <h2 class="text-2xl font-extrabold text-center">Lesson</h2>
 
 <p>Prompt: {{ prompt }} </p>

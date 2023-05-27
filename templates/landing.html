@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+<div class="navbar bg-base-100 container">
+  <div class="flex-1">
+    <a href="/"
+      class="btn btn-ghost normal-case text-2xl underline decoration-2 underline-offset-8">LessonPlanner.ai</a>
+  </div>
+  <div class="flex-none">
+    <ul class="menu menu-horizontal px-1">
+      <li><a href="/demo">Demo</a></li>
+      <li><a href="/signup">Sign up</a></li>
+      <li><a href="/login">Log in</a></li>
+    </ul>
+  </div>
+</div>
+{% endblock %}
+
+{% block main %}
+<main class="bg-gray-100">
+  <section class="py-20">
+    <div class="container mx-auto">
+      <div class="text-center">
+        <h1 class="text-5xl font-bold text-gray-800">LessonPlanner.AI</h1>
+        <p class="mt-4 text-lg text-gray-600">Streamline Your Lesson Planning Process</p>
+        <div class="mt-8">
+          <a href="/signup" class="btn btn-primary">Get Started</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="container mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div class="text-center">
+          <h2 class="text-xl font-semibold text-gray-800">Efficient Lesson Planning</h2>
+          <p class="mt-2 text-gray-600">Create engaging lesson plans with ease and save valuable time.</p>
+        </div>
+        <div class="text-center">
+          <h2 class="text-xl font-semibold text-gray-800">Full Curriculums</h2>
+          <p class="mt-2 text-gray-600">Build comprehensive curriculums for your classes with all the necessary
+            resources.</p>
+        </div>
+        <div class="text-center">
+          <h2 class="text-xl font-semibold text-gray-800">Collaboration</h2>
+          <p class="mt-2 text-gray-600">Collaborate with other teachers, share lesson plans, and access a vast library
+            of resources.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 bg-white">
+    <div class="container mx-auto">
+      <h2 class="text-2xl font-semibold text-gray-800 text-center mb-8">Why Choose LessonPlanner.AI?</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div>
+          <h3 class="text-xl font-semibold text-gray-800">Easy-to-Use Interface</h3>
+          <p class="mt-2 text-gray-600">Our user-friendly interface makes it simple to create, organize, and modify
+            lesson plans.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-gray-800">Customizable Templates</h3>
+          <p class="mt-2 text-gray-600">Choose from a variety of customizable templates to fit your teaching style and
+            needs.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-gray-800">Time-Saving Features</h3>
+          <p class="mt-2 text-gray-600">Utilize AI-powered assistance to speed up the lesson planning process and focus
+            on teaching.</p>
+        </div>
+        <div>
+          <h3 class="text-xl font-semibold text-gray-800">Collaboration & Resource Sharing</h3>
+          <p class="mt-2 text-gray-600">Connect with fellow teachers, share resources, and collaborate on lesson plans
+            and curriculums.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16">
+    <div class="container mx-auto text-center">
+      <h2 class="text-2xl font-semibold text-gray-800 mb-8">Start Building Better Lessons Today!</h2>
+      <a href="/signup" class="btn btn-primary">Sign Up</a>
+    </div>
+  </section>
+
+  <footer class="bg-gray-800 py-8">
+    <div class="container mx-auto text-center text-gray-400">
+      <p>&copy; 2023 LessonPlanner.AI. All rights reserved.</p>
+    </div>
+  </footer>
+</main>
+
+{% endblock %}

@@ -1,27 +1,28 @@
-{% extends "auth/authenticated.html" %} {% block navbar %}
-<div class="navbar bg-base-100">
+{% extends "base.html" %}
+
+{% block navbar %}
+<div class="navbar bg-base-100 container">
   <div class="flex-1">
     <a href="/classes" class="btn btn-ghost normal-case text-2xl">LessonPlanner.ai</a>
   </div>
   <div class="flex-none">
     <ul class="menu menu-horizontal px-1">
       <li><a href="/classes">Classes</a></li>
-      <li>
-        <a href="/lesson" class="underline decoration-2 underline-offset-8">Lessons</a>
-      </li>
+      <li><a href="/lesson" class="underline decoration-2 underline-offset-8">Lessons</a></li>
       <li><a href="/profile">Profile</a></li>
     </ul>
   </div>
 </div>
-{% endblock %} {% block authenticated %}
+{% endblock %}
 
-<h2 class="text-2xl font-extrabold text-center">Chat</h2>
+{% block main %}
 
+<h2 class="text-2xl font-extrabold text-center">Lesson Builder</h2>
 
-<form action="/chat" method="post">
-  <label for="role">
+<form action="/lesson_viewer" method="post">
+  <label for="prompt">
     Enter your prompt:
-    <input type="text" name="role" />
+    <input type="text" name="prompt" />
   </label>
   <input type="submit" value="Submit" />
 </form>

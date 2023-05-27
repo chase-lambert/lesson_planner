@@ -1,16 +1,7 @@
 use super::*;
 
 #[derive(Template)]
-#[template(path = "auth/public.html")]
-pub struct PublicTemplate;
-
-// pub async fn public() -> impl IntoResponse {
-//     let template = PublicTemplate;
-//     HtmlTemplate(template)
-// }
-
-#[derive(Template)]
-#[template(path = "sections/landing.html")]
+#[template(path = "landing.html")]
 pub struct LandingTemplate;
 
 pub async fn landing() -> impl IntoResponse {
@@ -19,7 +10,7 @@ pub async fn landing() -> impl IntoResponse {
 }
 
 #[derive(Template)]
-#[template(path = "sections/demo.html")]
+#[template(path = "demo.html")]
 pub struct DemoTemplate;
 
 pub async fn demo() -> impl IntoResponse {
@@ -28,7 +19,7 @@ pub async fn demo() -> impl IntoResponse {
 }
 
 #[derive(Template)]
-#[template(path = "auth/login.html")]
+#[template(path = "login.html")]
 pub struct LoginTemplate;
 
 pub async fn login() -> impl IntoResponse {
@@ -37,7 +28,7 @@ pub async fn login() -> impl IntoResponse {
 }
 
 #[derive(Template)]
-#[template(path = "auth/signup.html")]
+#[template(path = "signup.html")]
 pub struct SignupTemplate;
 
 pub async fn signup() -> impl IntoResponse {

@@ -1,4 +1,4 @@
-use crate::template::{authenticated, chat, lessons, public};
+use crate::template::{authenticated, lessons, public};
 
 use axum::{
     routing::{get, post},
@@ -15,7 +15,6 @@ pub fn public_routes() -> Router {
 
 pub fn authenticated_routes() -> Router {
     Router::new()
-        .route("/chat", get(chat::initial_chat).post(chat::chat))
         .route("/classes", get(authenticated::classes))
         .route("/lesson", get(lessons::lesson_builder))
         .route("/lesson_viewer", post(lessons::lesson_viewer))
