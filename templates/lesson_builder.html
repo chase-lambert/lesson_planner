@@ -17,14 +17,16 @@
 
 {% block main %}
 
-<h2 class="text-2xl font-extrabold text-center">Lesson Builder</h2>
+<div class="container mx-auto">
+  <h2 class="text-2xl font-extrabold text-center mb-4">Lesson Builder</h2>
 
-<form action="/lesson_viewer" method="post">
-  <label for="prompt">
-    Enter your prompt:
-    <input type="text" name="prompt" />
-  </label>
-  <input type="submit" value="Submit" />
-</form>
+  <form action="/lesson_viewer" method="post" class="max-w-md mx-auto">
+    <div class="mb-4">
+      <label for="prompt" class="block mb-2 text-sm">Enter your prompt:</label>
+      <input type="text" name="prompt" id="prompt" class="form-input w-full" />
+    </div>
+    <button type="submit" class="btn btn-primary w-full">Submit</button>
+  </form>
+</div>
 
 {% endblock %}

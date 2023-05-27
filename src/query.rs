@@ -25,7 +25,8 @@ pub async fn run_query(prompt: &str) -> Result<Post, reqwest::Error> {
     println!("Your prompt: {prompt}");
     let api_key = std::env::var("OPENAI_API_KEY").expect("No variable found");
     let client = Client::new();
-    let params = &serde_json::json!({"model": "text-ada-001", "prompt": prompt, "max_tokens": 100});
+    let params =
+        &serde_json::json!({"model": "text-davinci-003", "prompt": prompt, "max_tokens": 1000});
     let response_body: Post = client
         .post("https://api.openai.com/v1/completions")
         .bearer_auth(api_key)
