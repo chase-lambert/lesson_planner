@@ -1,7 +1,7 @@
 mod error;
-mod query;
+mod handlers;
+mod openai;
 mod routes;
-mod template;
 
 pub use self::error::{MyError, Result};
 
@@ -11,7 +11,7 @@ use axum::{
     routing::get,
     Router,
 };
-use template::*;
+use handlers::*;
 use tower_http::services::{ServeDir, ServeFile};
 // use query::run_query;
 // use serde::Deserialize;

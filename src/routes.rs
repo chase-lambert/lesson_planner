@@ -1,5 +1,4 @@
-use crate::template::{authenticated, lessons, public};
-
+use crate::handlers::{authenticated, lessons, public};
 use axum::{
     routing::{get, post},
     Router,

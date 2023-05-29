@@ -1,5 +1,5 @@
 use super::*;
-use crate::query::run_query;
+use crate::openai::run_query;
 
 #[derive(Template)]
 #[template(path = "lesson_builder.html")]
