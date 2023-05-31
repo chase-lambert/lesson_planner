@@ -14,6 +14,7 @@ pub fn public_routes() -> Router {
 
 pub fn authenticated_routes() -> Router {
     Router::new()
+        .route("/account", get(authenticated::account))
         .route("/classes", get(authenticated::classes))
         .route("/lesson", get(lessons::lesson_builder))
         .route("/lesson_viewer", post(lessons::lesson_viewer))

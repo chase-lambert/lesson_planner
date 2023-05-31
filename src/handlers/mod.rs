@@ -1,4 +1,5 @@
 pub mod authenticated;
+pub mod lesson_builder;
 pub mod lessons;
 pub mod public;
 
