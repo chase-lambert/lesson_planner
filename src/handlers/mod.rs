@@ -1,6 +1,6 @@
 pub mod authenticated;
-pub mod lesson_builder;
 pub mod lessons;
+pub mod lessons2;
 pub mod public;
 
 pub use crate::{MyError, Result};

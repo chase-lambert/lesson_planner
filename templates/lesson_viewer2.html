@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+<div class="navbar bg-base-100 container">
+  <div class="flex-1">
+    <a href="/classes" class="btn btn-ghost normal-case text-2xl">LessonPlanner.ai</a>
+  </div>
+  <div class="flex-none">
+    <ul class="menu menu-horizontal px-1">
+      <li><a href="/lesson" class="underline decoration-2 underline-offset-8">Lesson Builder</a></li>
+      <li><a href="/classes">Classes</a></li>
+      <li><a href="/account">Account</a></li>
+    </ul>
+  </div>
+</div>
+{% endblock %}
+
+{% block main %}
+
+<form method="POST" action="/lesson_viewer2">
+  <input type="hidden" name="conversation_history" value="{{ conversation_history_json }}" />
+  <ul>
+    {% for message in history %}
+    <li><strong>{{ message.role }}:</strong> {{ message.content }}</li>
+    {% endfor %}
+  </ul>
+  <input type="text" name="message" />
+  <input type="submit" value="Send" />
+</form>
+
+
+
+{% endblock %}
