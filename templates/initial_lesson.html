@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block navbar %}
+<div class="navbar bg-base-100 container">
+  <div class="flex-1">
+    <a href="/classes" class="btn btn-ghost normal-case text-2xl">LessonPlanner.ai</a>
+  </div>
+  <div class="flex-none">
+    <ul class="menu menu-horizontal px-1">
+      <li><a href="/lesson" class="underline decoration-2 underline-offset-8">Lesson Builder</a></li>
+      <li><a href="/classes">Classes</a></li>
+      <li><a href="/account">Account</a></li>
+    </ul>
+  </div>
+</div>
+{% endblock %}
+
+{% block main %}
+
+<div class="container mx-auto">
+  <h2 class="text-2xl font-extrabold text-center mb-4">Lesson Builder</h2>
+
+  <form action="/lesson_builder" method="post" class="max-w-md mx-auto">
+    <input type="hidden" name="conversation_history" value="[]" />
+    <div class="mb-4">
+      <label for="message" class="block mb-2 text-sm">Enter description of desired lesson plan (you can include a full
+        description, just relevant keywords, special instructions, etc.):</label>
+      <input type="text" name="message" id="message" class="form-input w-full" />
+    </div>
+    <button type="submit" class="btn btn-primary w-full">Submit</button>
+  </form>
+</div>
+
+
+
+{% endblock %}

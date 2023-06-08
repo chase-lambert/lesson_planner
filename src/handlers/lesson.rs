@@ -1,26 +1,30 @@
 use super::*;
-use crate::openai2::*;
+use crate::openai::*;
 
-// #[derive(Template)]
-// #[template(path = "lesson_builder2.html")]
-// struct LessonBuilder2;
-// struct LessonBuilder;
+#[derive(Template)]
+#[template(path = "initial_lesson.html")]
+struct InitialLesson;
+
+pub async fn initial_lesson() -> impl IntoResponse {
+    let template = InitialLesson;
+    HtmlTemplate(template)
+}
 
 #[derive(serde::Deserialize)]
-pub struct FormData {
+pub struct LessonBuilderForm {
     pub message: String,
     pub conversation_history: String, // JSON-serialized conversation history
 }
 
 // This struct will be used to pass data to the Askama template
 #[derive(serde::Serialize, Template)]
-#[template(path = "lesson_viewer2.html")]
-struct LessonViewerTemplate2 {
+#[template(path = "lesson_builder.html")]
+struct LessonBuilder {
     pub history: Vec<ChatMessage>,
     pub conversation_history_json: String,
 }
 
-pub async fn lesson_builder2(form: Form<FormData>) -> impl IntoResponse {
+pub async fn lesson_builder(form: Form<LessonBuilderForm>) -> impl IntoResponse {
     let mut history: Vec<ChatMessage> =
         serde_json::from_str(&form.conversation_history).unwrap_or_default();
 
@@ -37,12 +41,12 @@ pub async fn lesson_builder2(form: Form<FormData>) -> impl IntoResponse {
 
     // Append the AI's response to the history
     history.push(ChatMessage {
-        role: "AI".to_string(),
+        role: "assistant".to_string(),
         content: ai_response,
     });
 
     // Prepare the context for the Askama template
-    let context = LessonViewerTemplate2 {
+    let context = LessonBuilder {
         history: history.clone(),
         conversation_history_json: serde_json::to_string(&history)
             .expect("Failed to serialize conversation history"),

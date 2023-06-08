@@ -1,5 +1,5 @@
 // use crate::handlers::{authenticated, lessons, public};
-use crate::handlers::{authenticated, lessons, lessons2, public};
+use crate::handlers::{authenticated, lesson, public};
 use axum::{
     routing::{get, post},
     Router,
@@ -17,8 +17,7 @@ pub fn authenticated_routes() -> Router {
     Router::new()
         .route("/account", get(authenticated::account))
         .route("/classes", get(authenticated::classes))
-        .route("/lesson", get(lessons::lesson_builder))
-        .route("/lesson_viewer", post(lessons::lesson_viewer))
-        .route("/lesson_builder2", get(lessons2::lesson_builder2))
+        .route("/lesson", get(lesson::initial_lesson))
+        .route("/lesson_builder", post(lesson::lesson_builder))
         .route("/profile", get(authenticated::profile))
 }

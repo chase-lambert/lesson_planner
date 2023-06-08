@@ -1,7 +1,6 @@
 mod error;
 mod handlers;
 mod openai;
-mod openai2;
 mod routes;
 
 pub use self::error::{MyError, Result};

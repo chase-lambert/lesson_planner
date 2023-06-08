@@ -17,17 +17,36 @@
 
 {% block main %}
 
-<div class="container mx-auto">
-  <h2 class="text-2xl font-extrabold text-center mb-4">Lesson Builder</h2>
+<div class="container mx-auto max-w-lg">
+  <h2 class="text-2xl font-extrabold text-center">Lesson Builder</h2>
 
-  <form action="/lesson_viewer" method="post" class="max-w-md mx-auto">
+  <div class="bg-gray-100 p-4 rounded-lg shadow-md mb-8">
+    <h3 class="text-lg font-semibold mb-2">Original lesson plan description:</h3>
+    <ul>
+      {% for message in history if message.role == "user" %}
+      <li><strong>{{ message.role }}:</strong> {{ message.content }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="bg-gray-100 p-4 rounded-lg shadow-md mb-8 max-w-3xl mx-auto">
+    <h3 class="text-lg font-semibold mb-2">Lesson Plan:</h3>
+    <ul class="prose">
+      {% for message in history if message.role == "assistant" %}
+      <li><strong>{{ message.role }}:</strong> {{ message.content }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <form action="/lesson_builder" method="post" class="max-w-md mx-auto">
     <div class="mb-4">
-      <label for="prompt" class="block mb-2 text-sm">Enter description of desired lesson plan (you can include a full
-        description, just relevant keywords, special instructions, etc.):</label>
-      <input type="text" name="prompt" id="prompt" class="form-input w-full" />
+      <label for="message" class="block mb-2 text-sm">What else would you like to add to the lesson plan:</label>
+      <input type="hidden" name="conversation_history" value="{{ conversation_history_json }}" />
+      <input type="text" name="message" id="message" class="form-input w-full" />
     </div>
     <button type="submit" class="btn btn-primary w-full">Submit</button>
   </form>
 </div>
+
 
 {% endblock %}
