@@ -1,5 +1,6 @@
 use super::*;
 use crate::openai::*;
+use comrak::{markdown_to_html, ComrakOptions};
 
 #[derive(Template)]
 #[template(path = "initial_lesson.html")]
@@ -39,10 +40,13 @@ pub async fn lesson_builder(form: Form<LessonBuilderForm>) -> impl IntoResponse 
         .await
         .expect("Failed to get AI response");
 
+    let ai_response_html = markdown_to_html(&ai_response, &ComrakOptions::default());
+
     // Append the AI's response to the history
     history.push(ChatMessage {
         role: "assistant".to_string(),
-        content: ai_response,
+        // content: ai_response,
+        content: ai_response_html,
     });
 
     // Prepare the context for the Askama template
