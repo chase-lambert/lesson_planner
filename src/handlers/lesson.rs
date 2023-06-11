@@ -25,6 +25,13 @@ struct LessonBuilder {
     pub conversation_history_json: String,
 }
 
+#[derive(serde::Serialize, Template)]
+#[template(path = "lesson_builder_inner.html")]
+struct LessonBuilderInner {
+    pub history: Vec<ChatMessage>,
+    pub conversation_history_json: String,
+}
+
 pub async fn lesson_builder(form: Form<LessonBuilderForm>) -> impl IntoResponse {
     let mut history: Vec<ChatMessage> =
         serde_json::from_str(&form.conversation_history).unwrap_or_default();
@@ -42,15 +49,16 @@ pub async fn lesson_builder(form: Form<LessonBuilderForm>) -> impl IntoResponse 
 
     let ai_response_html = markdown_to_html(&ai_response, &ComrakOptions::default());
 
+    println!("{ai_response}");
+
     // Append the AI's response to the history
     history.push(ChatMessage {
         role: "assistant".to_string(),
-        // content: ai_response,
         content: ai_response_html,
     });
 
     // Prepare the context for the Askama template
-    let context = LessonBuilder {
+    let context = LessonBuilderInner {
         history: history.clone(),
         conversation_history_json: serde_json::to_string(&history)
             .expect("Failed to serialize conversation history"),
