@@ -17,7 +17,6 @@ pub struct LessonBuilderForm {
     pub conversation_history: String, // JSON-serialized conversation history
 }
 
-// This struct will be used to pass data to the Askama template
 #[derive(serde::Serialize, Template)]
 #[template(path = "lesson_builder.html")]
 struct LessonBuilder {
@@ -36,10 +35,12 @@ pub async fn lesson_builder(form: Form<LessonBuilderForm>) -> impl IntoResponse 
     let mut history: Vec<ChatMessage> =
         serde_json::from_str(&form.conversation_history).unwrap_or_default();
 
+    let user_prompt = form.message.clone();
+    let user_prompt = format!("Please return all responses in Markdown format. {user_prompt}");
     // Append the user's message to the history
     history.push(ChatMessage {
         role: "user".to_string(),
-        content: form.message.clone(),
+        content: user_prompt,
     });
 
     // Generate AI's response

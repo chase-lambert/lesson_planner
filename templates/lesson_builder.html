@@ -17,11 +17,48 @@
 
 {% block main %}
 
-<div class="container mx-auto max-w-lg">
+<div class="container mx-auto max-w-xl">
   <h2 class="text-2xl font-extrabold text-center">Lesson Builder</h2>
 
-  <div id="lesson-content" class="mx-auto max-w-lg">
+  <div id="lesson-content-div" class="mx-auto max-w-lg">
     {% include "lesson_builder_inner.html" %}
+  </div>
+
+  <form class="loading-modal-form" hx-post="/lesson_builder" hx-trigger="submit" hx-swap="afterbegin"
+    hx-target="#lesson-content-div" class="max-w-md mx-auto">
+    <div class="mb-4">
+      <label for="message" class="block mb-2 text-sm">What else would you like to add to the lesson plan:</label>
+      <input type="hidden" name="conversation_history" value="{{ conversation_history_json }}" />
+      <input type="text" name="message" id="message" class="form-input w-full" />
+    </div>
+    <button type="submit" class="btn btn-primary w-full">Submit</button>
+  </form>
+
+  <!-- Loading modal -->
+  <div id="loading-modal" class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog"
+    aria-modal="true" style="display: none">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+      <div
+        class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+        <div class="sm:flex sm:items-start">
+          <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+            <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+              Building your lesson plan...
+            </h3>
+            <div class="mt-2">
+              <p id="tip-intro" style="display: none">
+                While you wait, here is a helpful tip:
+              </p>
+              <p id="tip"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

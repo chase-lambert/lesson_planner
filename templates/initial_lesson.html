@@ -21,8 +21,8 @@
   <h2 class="text-2xl font-extrabold text-center mb-4">Lesson Builder</h2>
 
   <div id="lesson-content" class="mx-auto max-w-lg">
-    <form hx-post="/lesson_builder" hx-trigger="submit" hx-swap="innerHTML" hx-target="#lesson-content"
-      class="max-w-md mx-auto">
+    <form class="loading-modal-form" hx-post="/lesson_builder" hx-trigger="submit" hx-swap="innerHTML"
+      hx-target="#lesson-content" class="max-w-md mx-auto">
       <input type="hidden" name="conversation_history" value="[]" />
       <div class="mb-4">
         <label for="message" class="block mb-2 text-sm">Prompt:</label>
@@ -60,33 +60,5 @@
 
 </div>
 
+
 {% endblock %}
-
-<script>
-  const tips = [
-    "Tip 1: Make your lesson engaging with interactive activities.",
-    "Tip 2: Break complex topics into smaller, manageable chunks.",
-  ];
-  function displayRandomTip() {
-    const tipElement = document.getElementById("tip");
-    const tipIntroElement = document.getElementById("tip-intro");
-    const randomTip = tips[Math.floor(Math.random() * tips.length)];
-    tipElement.innerText = randomTip;
-    tipIntroElement.style.display = "block";
-  }
-
-  document
-    .querySelector("form")
-    .addEventListener("htmx:configRequest", function (evt) {
-      console.log("configRequest");
-      displayRandomTip();
-      document.getElementById("loading-modal").style.display = "block";
-    });
-
-  document
-    .querySelector("form")
-    .addEventListener("htmx:afterOnLoad", function (evt) {
-      console.log("afterOnLoad");
-      document.getElementById("loading-modal").style.display = "none";
-    });
-</script>
