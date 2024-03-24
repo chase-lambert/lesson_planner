@@ -29,9 +29,11 @@ async fn main() {
 
     let port = std::env::var("PORT")
         .unwrap_or_else(|_| "4000".to_string())
-        .parse()
+        .parse::<u32>()
         .expect("PORT must be a number");
-    let addr = std::net::SocketAddr::from(([0, 0, 0, 0], port));
+    let addr = format!("0.0.0.0:{port}");
+    let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
+    tracing::debug!("listening on {port}");
 
     let app = Router::new()
         .route("/", get(public::landing))
@@ -45,10 +47,5 @@ async fn main() {
         );
     // .layer(tower_livereload::LiveReloadLayer::new());
 
-    tracing::debug!("listening on {addr}");
-
-    axum::Server::bind(&addr)
-        .serve(app.into_make_service())
-        .await
-        .unwrap();
+    axum::serve(listener, app).await.unwrap();
 }
