@@ -13,7 +13,7 @@
     </ul>
   </div>
 </div>
-{% endblock %}
+{% endblock navbar %}
 
 {% block main %}
 <div class="container mx-auto">
@@ -21,7 +21,7 @@
 
   <main class="bg-gray-100 flex items-center justify-center py-20">
     <div class="max-w-md w-full bg-white rounded-lg overflow-hidden shadow-md p-6">
-      <form>
+      <form hx-post="/signup" hx-target="#signup-response" hx-swap="outerHMTL">
         <div class="mb-6">
           <label for="first-name" class="block mb-2 text-sm text-gray-800">First Name</label>
           <input type="text" id="first-name" class="form-input w-full" placeholder="Enter your first name">
@@ -52,4 +52,4 @@
     </div>
   </main>
 </div>
-{% endblock %}
+{% endblock main %}

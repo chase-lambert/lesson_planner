@@ -1,51 +1,51 @@
 {% extends "base.html" %}
-
 {% block navbar %}
-<div class="navbar bg-base-100 container">
-  <div class="flex-1">
-    <a href="/" class="btn btn-ghost normal-case text-2xl">LessonPlanner.ai</a>
-  </div>
-  <div class="flex-none">
-    <ul class="menu menu-horizontal px-1">
-      <li><a href="/demo" class="underline decoration-2 underline-offset-8">Demo</a></li>
-      <li><a href="/signup">Sign up</a></li>
-      <li><a href="/login">Log in</a></li>
-    </ul>
-  </div>
-</div>
-{% endblock %}
-
-{% block main %}
-
-<div class="container mx-auto">
-  <h2 class="text-2xl font-extrabold text-center mb-4">Demo</h2>
-
-  <div class="bg-gray-100 p-8 rounded-lg shadow-md">
-    <!-- Insert video link here -->
-    <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" class="w-full h-64" frameborder="0" allowfullscreen></iframe> -->
-    <p class="mt-4 text-gray-800">Demo still being built.
-      <a href="/lesson" class="text-xl font-extrabold">Test out the actual lesson builder here!</a>
-    </p>
-  </div>
-
-  <div class="mt-8">
-    <h3 class="text-lg font-semibold">App Features</h3>
-    <ul class="list-disc list-inside mt-4">
-      <li>Create comprehensive lesson plans</li>
-      <li>Customize curriculums for different subjects</li>
-      <li>Generate class materials with ChatGPT's assistance</li>
-      <li>Collaborate with other teachers in real-time</li>
-    </ul>
-  </div>
-
-  <div class="mt-8">
-    <h3 class="text-lg font-semibold">Screenshots</h3>
-    <div class="grid grid-cols-2 gap-4 mt-4">
-      <!-- Insert image URL here -->
-      <!-- <img src="IMAGE_URL" alt="Screenshot 1" class="rounded-lg shadow-md">
-      <img src="IMAGE_URL" alt="Screenshot 2" class="rounded-lg shadow-md"> -->
+    <div class="navbar bg-base-100 container">
+        <div class="flex-1">
+            <a href="/" class="btn btn-ghost normal-case text-2xl">LessonPlanner.ai</a>
+        </div>
+        <div class="flex-none">
+            <ul class="menu menu-horizontal px-1">
+                <li>
+                    <a href="/demo" class="underline decoration-2 underline-offset-8">Demo</a>
+                </li>
+                <li>
+                    <a href="/signup">Sign up</a>
+                </li>
+                <li>
+                    <a href="/login">Log in</a>
+                </li>
+            </ul>
+        </div>
     </div>
-  </div>
-</div>
-
-{% endblock %}
+{% endblock navbar %}
+{% block main %}
+    <div class="container mx-auto">
+        <h2 class="text-2xl font-extrabold text-center mb-4">Demo</h2>
+        <div class="bg-gray-100 p-8 rounded-lg shadow-md">
+            <!-- Insert video link here -->
+            <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID" class="w-full h-64" frameborder="0" allowfullscreen></iframe> -->
+            <p class="mt-4 text-gray-800">
+                Demo still being built.
+                <a href="/lesson" class="text-xl font-extrabold">Test out the actual lesson builder here!</a>
+            </p>
+        </div>
+        <div class="mt-8">
+            <h3 class="text-lg font-semibold">App Features</h3>
+            <ul class="list-disc list-inside mt-4">
+                <li>Create comprehensive lesson plans</li>
+                <li>Customize curriculums for different subjects</li>
+                <li>Generate class materials with ChatGPT's assistance</li>
+                <li>Collaborate with other teachers in real-time</li>
+            </ul>
+        </div>
+        <div class="mt-8">
+            <h3 class="text-lg font-semibold">Screenshots</h3>
+            <div class="grid grid-cols-2 gap-4 mt-4">
+                <!-- Insert image URL here -->
+                <!-- <img src="IMAGE_URL" alt="Screenshot 1" class="rounded-lg shadow-md">
+      <img src="IMAGE_URL" alt="Screenshot 2" class="rounded-lg shadow-md"> -->
+            </div>
+        </div>
+    </div>
+{% endblock main %}
