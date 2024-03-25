@@ -6,6 +6,18 @@ use argon2::{
 };
 use sqlx::{types::Uuid, PgPool};
 
+fn hash_password(password: &str) -> Result<String> {
+    let salt = SaltString::generate(&mut OsRng);
+    let argon2 = Argon2::default();
+
+    let password_hash = argon2
+        .hash_password(password.as_bytes(), &salt)
+        .map_err(|e| anyhow::anyhow!("Password hashing error: {e}"))?
+        .to_string();
+
+    Ok(password_hash)
+}
+
 async fn create_user(pool: &PgPool, new_user: NewUser) -> Result<User> {
     let hashed_password = hash_password(&new_user.password)?;
     let user_id = Uuid::new_v4();
@@ -32,14 +44,29 @@ async fn create_user(pool: &PgPool, new_user: NewUser) -> Result<User> {
     })
 }
 
-fn hash_password(password: &str) -> Result<String> {
-    let salt = SaltString::generate(&mut OsRng);
-    let argon2 = Argon2::default();
+async fn delete_user(pool: &PgPool, user_id: Uuid) -> Result<()> {
+    sqlx::query!("DELETE FROM users WHERE id = $1", user_id)
+        .execute(pool)
+        .await?;
 
-    let password_hash = argon2
-        .hash_password(password.as_bytes(), &salt)
-        .map_err(|e| anyhow::anyhow!("Password hashing error: {e}"))?
-        .to_string();
+    Ok(())
+}
 
-    Ok(password_hash)
+#[cfg(test)]
+mod tests {
+    use argon2::{PasswordHash, PasswordVerifier};
+
+    use super::*;
+
+    #[test]
+    fn test_hash_password() {
+        let password = "password";
+        let password_hash = hash_password(password).expect("Failed to hash password");
+        let parsed_hash =
+            PasswordHash::new(&password_hash).expect("Failed to parse hashed password");
+
+        assert!(Argon2::default()
+            .verify_password(password.as_bytes(), &parsed_hash)
+            .is_ok());
+    }
 }
