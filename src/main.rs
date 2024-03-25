@@ -3,6 +3,7 @@ mod error;
 mod handlers;
 mod openai;
 mod routes;
+mod types;
 
 pub use self::error::{MyError, MyResult};
 
