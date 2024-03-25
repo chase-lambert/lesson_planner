@@ -1,10 +1,12 @@
+mod db;
 mod error;
 mod handlers;
 mod openai;
 mod routes;
 
-pub use self::error::{MyError, Result};
+pub use self::error::{MyError, MyResult};
 
+use anyhow::{Context, Result};
 use axum::{
     // extract,
     // extract::Form,
@@ -12,13 +14,14 @@ use axum::{
     Router,
 };
 use handlers::*;
+use sqlx::postgres::PgPoolOptions;
 use tower_http::services::{ServeDir, ServeFile};
 // use query::run_query;
 // use serde::Deserialize;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
 
 #[tokio::main]
-async fn main() {
+async fn main() -> Result<()> {
     tracing_subscriber::registry()
         .with(
             tracing_subscriber::EnvFilter::try_from_default_env()
@@ -27,12 +30,23 @@ async fn main() {
         .with(tracing_subscriber::fmt::layer())
         .init();
 
+    let database_url =
+        std::env::var("DATABASE_URL").context("DATABASE_URL must be set correctly")?;
+    let pool = PgPoolOptions::new()
+        .max_connections(5)
+        .connect(&database_url)
+        .await
+        .context("Failed to connect to the database")?;
+    tracing::debug!("Connected to the database.");
+
     let port = std::env::var("PORT")
         .unwrap_or_else(|_| "4000".to_string())
         .parse::<u32>()
-        .expect("PORT must be a number");
+        .context("PORT must be a number")?;
     let addr = format!("0.0.0.0:{port}");
-    let listener = tokio::net::TcpListener::bind(&addr).await.unwrap();
+    let listener = tokio::net::TcpListener::bind(&addr)
+        .await
+        .context("TcpListener creation failed")?;
     tracing::debug!("listening on {port}");
 
     let app = Router::new()
@@ -47,5 +61,9 @@ async fn main() {
         );
     // .layer(tower_livereload::LiveReloadLayer::new());
 
-    axum::serve(listener, app).await.unwrap();
+    axum::serve(listener, app)
+        .await
+        .context("Unable to start axum service")?;
+
+    Ok(())
 }

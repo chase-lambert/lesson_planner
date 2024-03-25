@@ -5,7 +5,7 @@ use axum::{
 use reqwest::Error as ReqwestError;
 use thiserror::Error;
 
-pub type Result<T> = core::result::Result<T, MyError>;
+pub type MyResult<T> = core::result::Result<T, MyError>;
 
 #[derive(Error, Debug)]
 pub enum MyError {
