@@ -24,27 +24,27 @@
       <form hx-post="/signup" hx-target="#signup-response" hx-swap="outerHMTL">
         <div class="mb-6">
           <label for="username" class="block mb-2 text-sm text-gray-800">First Name</label>
-          <input type="text" id="username" class="form-input w-full" placeholder="Enter your username">
+          <input type="text" name="username" id="username" class="form-input w-full" placeholder="Enter your username">
         </div>
         <div class="mb-6">
           <label for="first-name" class="block mb-2 text-sm text-gray-800">First Name</label>
-          <input type="text" id="first-name" class="form-input w-full" placeholder="Enter your first name">
+          <input type="text" name="first-name" id="first-name" class="form-input w-full" placeholder="Enter your first name">
         </div>
         <div class="mb-6">
           <label for="last-name" class="block mb-2 text-sm text-gray-800">Last Name</label>
-          <input type="text" id="last-name" class="form-input w-full" placeholder="Enter your last name">
+          <input type="text" name="last-name" id="last-name" class="form-input w-full" placeholder="Enter your last name">
         </div>
         <div class="mb-6">
           <label for="email" class="block mb-2 text-sm text-gray-800">Email</label>
-          <input type="email" id="email" class="form-input w-full" placeholder="Enter your email">
+          <input type="email" name="email" id="email" class="form-input w-full" placeholder="Enter your email">
         </div>
         <div class="mb-6">
           <label for="password" class="block mb-2 text-sm text-gray-800">Password</label>
-          <input type="password" id="password" class="form-input w-full" placeholder="Enter your password">
+          <input type="password" name="password" id="password" class="form-input w-full" placeholder="Enter your password">
         </div>
         <div class="mb-6">
           <label for="password" class="block mb-2 text-sm text-gray-800">Confirm Password</label>
-          <input type="password" id="confirm-password" class="form-input w-full" placeholder="Enter your password">
+          <input type="password" name="confirm-password" id="confirm-password" class="form-input w-full" placeholder="Enter your password">
         </div>
         <div class="text-center">
           <button type="submit" class="btn btn-primary">Sign Up</button>
@@ -56,4 +56,19 @@
     </div>
   </main>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const signupForm = document.querySelector("form[hx-post='/signup']");
+        signupForm.addEventListener("submit", function(event) {
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+            if (password !== confirmPassword) {
+                event.preventDefault(); // Prevent form from submitting
+                alert("Passwords do not match.");
+            }
+        });
+    });
+</script>
+
 {% endblock main %}
