@@ -1,5 +1,5 @@
 use crate::types::{NewUser, User};
-use anyhow::Result;
+use anyhow::{Context, Result};
 use argon2::{
     password_hash::{rand_core::OsRng, SaltString},
     Argon2, PasswordHasher,
@@ -18,8 +18,8 @@ fn hash_password(password: &str) -> Result<String> {
     Ok(password_hash)
 }
 
-async fn create_user(pool: &PgPool, new_user: NewUser) -> Result<User> {
-    let hashed_password = hash_password(&new_user.password)?;
+pub async fn create_user(pool: &PgPool, new_user: NewUser) -> Result<User> {
+    let hashed_password = hash_password(&new_user.password).context("Could not hash password")?;
     let user_id = Uuid::new_v4();
 
     sqlx::query!(
@@ -32,7 +32,8 @@ async fn create_user(pool: &PgPool, new_user: NewUser) -> Result<User> {
         hashed_password
     )
         .execute(pool)
-        .await?;
+        .await
+        .context("Failed to insert user to db")?;
 
     Ok(User {
         id: user_id,
@@ -44,12 +45,21 @@ async fn create_user(pool: &PgPool, new_user: NewUser) -> Result<User> {
     })
 }
 
-async fn delete_user(pool: &PgPool, user_id: Uuid) -> Result<()> {
+pub async fn delete_user(pool: &PgPool, user_id: Uuid) -> Result<()> {
     sqlx::query!("DELETE FROM users WHERE id = $1", user_id)
         .execute(pool)
         .await?;
 
     Ok(())
+}
+
+pub async fn get_user_by_email(pool: PgPool, email: &str) -> Result<User> {
+    let user = sqlx::query_as!(User, "SELECT * FROM users WHERE email = $1", email)
+        .fetch_one(&pool)
+        .await
+        .context("Could not find user")?;
+
+    Ok(user)
 }
 
 #[cfg(test)]

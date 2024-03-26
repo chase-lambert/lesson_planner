@@ -1,5 +1,5 @@
 use super::*;
-use crate::openai::*;
+use crate::open_ai::*;
 use comrak::{markdown_to_html, ComrakOptions};
 
 #[derive(Template)]

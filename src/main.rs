@@ -1,8 +1,9 @@
 mod db;
 mod error;
 mod handlers;
-mod openai;
+mod open_ai;
 mod routes;
+mod scratch;
 mod types;
 
 pub use self::error::{MyError, MyResult};
@@ -48,7 +49,7 @@ async fn main() -> Result<()> {
     let listener = tokio::net::TcpListener::bind(&addr)
         .await
         .context("TcpListener creation failed")?;
-    tracing::debug!("listening on {port}");
+    tracing::debug!("Listening on {port}");
 
     let app = Router::new()
         .route("/", get(public::landing))
@@ -61,6 +62,11 @@ async fn main() -> Result<()> {
                 .not_found_service(ServeFile::new("templates/sections/landing.html")),
         );
     // .layer(tower_livereload::LiveReloadLayer::new());
+
+    // TODO TESTING DB STUFF! MAKE SURE TO DELETE
+    // scratch::create_dummy_user(&pool)
+    //     .await
+    //     .context("Failed to create dummy user")?;
 
     axum::serve(listener, app)
         .await
