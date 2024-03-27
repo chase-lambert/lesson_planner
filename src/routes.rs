@@ -1,11 +1,14 @@
 // use crate::handlers::{authenticated, lessons, public};
-use crate::handlers::{authenticated, lesson, public};
+use crate::{
+    handlers::{authenticated, lesson, public},
+    types::AppState,
+};
 use axum::{
     routing::{get, post},
     Router,
 };
 
-pub fn public_routes() -> Router {
+pub fn public_routes() -> Router<AppState> {
     Router::new()
         .route("/landing", get(public::landing))
         .route("/demo", get(public::demo))
@@ -13,7 +16,7 @@ pub fn public_routes() -> Router {
         .route("/login", get(public::login))
 }
 
-pub fn authenticated_routes() -> Router {
+pub fn authenticated_routes() -> Router<AppState> {
     Router::new()
         .route("/account", get(authenticated::account))
         .route("/classes", get(authenticated::classes))

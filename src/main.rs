@@ -6,21 +6,21 @@ mod routes;
 mod scratch;
 mod types;
 
+use std::sync::Arc;
+
 pub use self::error::{MyError, MyResult};
 
 use anyhow::{Context, Result};
 use axum::{
-    // extract,
-    // extract::Form,
+    // extract::{Form, State},
     routing::get,
     Router,
 };
 use handlers::*;
 use sqlx::postgres::PgPoolOptions;
 use tower_http::services::{ServeDir, ServeFile};
-// use query::run_query;
-// use serde::Deserialize;
 use tracing_subscriber::{layer::SubscriberExt, util::SubscriberInitExt};
+use types::AppState;
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -41,6 +41,9 @@ async fn main() -> Result<()> {
         .context("Failed to connect to the database")?;
     tracing::debug!("Connected to the database.");
 
+    let shared_pool = Arc::new(pool);
+    let app_state = AppState { db: shared_pool };
+
     let port = std::env::var("PORT")
         .unwrap_or_else(|_| "4000".to_string())
         .parse::<u32>()
@@ -60,7 +63,8 @@ async fn main() -> Result<()> {
             ServeDir::new("static")
                 .precompressed_gzip()
                 .not_found_service(ServeFile::new("templates/sections/landing.html")),
-        );
+        )
+        .with_state(app_state);
     // .layer(tower_livereload::LiveReloadLayer::new());
 
     // TODO TESTING DB STUFF! MAKE SURE TO DELETE

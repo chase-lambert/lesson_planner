@@ -1,3 +1,4 @@
+#![allow(unused_variables, dead_code)]
 use anyhow::{Context, Result};
 use sqlx::PgPool;
 
@@ -11,6 +12,7 @@ pub async fn create_dummy_user(pool: &PgPool) -> Result<()> {
         last_name: "Doe".to_string(),
         email: "john@example.com".to_string(),
         password: "password".to_string(),
+        confirm_password: "password".to_string(),
     };
 
     let new_user = create_user(&pool, dummy_user)
