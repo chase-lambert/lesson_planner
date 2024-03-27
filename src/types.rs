@@ -15,7 +15,6 @@ pub struct NewUser {
     pub last_name: String,
     pub email: String,
     pub password: String,
-    pub confirm_password: String,
 }
 
 #[derive(Debug, Serialize, Deserialize)]

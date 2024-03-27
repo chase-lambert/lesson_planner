@@ -37,7 +37,7 @@ pub fn authenticated_routes() -> Router<AppState> {
 #[template(path = "base.html")]
 pub struct BaseTemplate;
 
-struct HtmlTemplate<T>(T);
+pub struct HtmlTemplate<T>(T);
 
 impl<T> IntoResponse for HtmlTemplate<T>
 where

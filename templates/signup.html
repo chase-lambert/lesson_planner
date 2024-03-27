@@ -21,18 +21,18 @@
 
   <main class="bg-gray-100 flex items-center justify-center py-20">
     <div class="max-w-md w-full bg-white rounded-lg overflow-hidden shadow-md p-6">
-      <form hx-post="/signup" hx-target="#signup-response" hx-swap="outerHMTL">
+      <form hx-post="/signup" hx-trigger="submit">
         <div class="mb-6">
-          <label for="username" class="block mb-2 text-sm text-gray-800">First Name</label>
-          <input type="text" name="username" id="username" class="form-input w-full" placeholder="Enter your username">
+          <label for="username" class="block mb-2 text-sm text-gray-800">User Name</label>
+          <input type="text" name="username" id="username" class="form-input w-full" placeholder="Enter your desired username">
         </div>
         <div class="mb-6">
           <label for="first-name" class="block mb-2 text-sm text-gray-800">First Name</label>
-          <input type="text" name="first-name" id="first-name" class="form-input w-full" placeholder="Enter your first name">
+          <input type="text" name="first_name" id="first-name" class="form-input w-full" placeholder="Enter your first name">
         </div>
         <div class="mb-6">
           <label for="last-name" class="block mb-2 text-sm text-gray-800">Last Name</label>
-          <input type="text" name="last-name" id="last-name" class="form-input w-full" placeholder="Enter your last name">
+          <input type="text" name="last_name" id="last-name" class="form-input w-full" placeholder="Enter your last name">
         </div>
         <div class="mb-6">
           <label for="email" class="block mb-2 text-sm text-gray-800">Email</label>
@@ -43,8 +43,8 @@
           <input type="password" name="password" id="password" class="form-input w-full" placeholder="Enter your password">
         </div>
         <div class="mb-6">
-          <label for="password" class="block mb-2 text-sm text-gray-800">Confirm Password</label>
-          <input type="password" name="confirm-password" id="confirm-password" class="form-input w-full" placeholder="Enter your password">
+          <label for="confirm-password" class="block mb-2 text-sm text-gray-800">Confirm Password</label>
+          <input type="password" name="confirm_password" id="confirm-password" class="form-input w-full" placeholder="Confirm your password">
         </div>
         <div class="text-center">
           <button type="submit" class="btn btn-primary">Sign Up</button>
@@ -54,6 +54,31 @@
         Already a member? <a href="/login" class="text-blue-500">Log in!</a>
       </p>
     </div>
+
+    <!-- Success modal -->
+    <div id="success-modal" class="fixed z-20 inset-0 overflow-y-auto" aria-labelledby="success-modal-title" role="dialog" aria-modal="true" style="display: none">
+        <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+
+            <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+
+            <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                <div class="sm:flex sm:items-start">
+                    <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                        <h3 class="text-lg leading-6 font-medium text-gray-900" id="success-modal-title">
+                            Success!
+                        </h3>
+                        <div class="mt-2">
+                            <p>
+                                Signup successful! Redirecting to your profile...
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
   </main>
 </div>
 
@@ -69,6 +94,28 @@
             }
         });
     });
+
+    document.body.addEventListener('htmx:afterOnLoad', function(event) {
+        const xhr = event.detail.xhr;
+        if (xhr.getResponseHeader('Content-Type').includes('application/json')) {
+            const response = JSON.parse(xhr.responseText);
+            if (response.redirect) {
+                const successModal = document.getElementById("success-modal");
+                if (successModal) {
+                    successModal.style.display = "block";
+                }
+
+                setTimeout(function() {
+                    window.location.href = response.redirect;
+                    if (successModal) {
+                        successModal.style.display = "none";
+                    }
+                }, 2000); 
+            }
+    }
+});
+
+
 </script>
 
 {% endblock main %}
