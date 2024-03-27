@@ -3,6 +3,7 @@ pub mod lesson;
 pub mod public;
 
 // pub use crate::{MyError, Result};
+use crate::types::AppState;
 pub use askama::Template;
 pub use axum::{
     // extract,
@@ -10,7 +11,27 @@ pub use axum::{
     http::StatusCode,
     response::{Html, IntoResponse, Response},
 };
-// pub use serde::{Deserialize, Serialize};
+use axum::{
+    routing::{get, post},
+    Router,
+};
+
+pub fn public_routes() -> Router<AppState> {
+    Router::new()
+        .route("/landing", get(public::landing))
+        .route("/demo", get(public::demo))
+        .route("/signup", get(public::initial_signup).post(public::signup))
+        .route("/login", get(public::login))
+}
+
+pub fn authenticated_routes() -> Router<AppState> {
+    Router::new()
+        .route("/account", get(authenticated::account))
+        .route("/classes", get(authenticated::classes))
+        .route("/lesson", get(lesson::initial_lesson))
+        .route("/lesson_builder", post(lesson::lesson_builder))
+        .route("/profile", get(authenticated::profile))
+}
 
 #[derive(Template)]
 #[template(path = "base.html")]

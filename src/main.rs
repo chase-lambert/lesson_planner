@@ -2,7 +2,6 @@ mod db;
 mod error;
 mod handlers;
 mod open_ai;
-mod routes;
 mod scratch;
 mod types;
 
@@ -56,8 +55,8 @@ async fn main() -> Result<()> {
 
     let app = Router::new()
         .route("/", get(public::landing))
-        .merge(routes::public_routes())
-        .merge(routes::authenticated_routes())
+        .merge(handlers::public_routes())
+        .merge(handlers::authenticated_routes())
         .nest_service(
             "/static",
             ServeDir::new("static")
