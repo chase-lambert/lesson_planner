@@ -61,7 +61,7 @@
                         <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                             <h3 class="text-lg leading-6 font-medium text-gray-900" id="success-modal-title">Login Successful!</h3>
                             <div class="mt-2">
-                                <p>Redirecting to your account page...</p>
+                                <p>Redirecting to the lesson builder...</p>
                             </div>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
             if (response.redirect) {
                 const successModal = document.getElementById("success-modal");
                 const successMessage = document.querySelector("#success-modal p");
-                successMessage.textContent = "Login successful! Redirecting to your account...";
+                successMessage.textContent = "Login successful! Redirecting to the lesson builder...";
                 
                 if (successModal) {
                     successModal.style.display = "block";
