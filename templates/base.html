@@ -9,53 +9,7 @@
     <title>LessonPlanner.ai</title>
   </head>
   <body>
-    {% block content %} {% block navbar %}{% endblock %} {% block main %}{%
-    endblock %} {% endblock %}
-
-    <script>
-      const tips = [
-        "Tip 1: Make your lesson engaging with interactive activities.",
-        "Tip 2: Break complex topics into smaller, manageable chunks.",
-      ];
-
-      function displayRandomTip() {
-        const tipElement = document.getElementById("tip");
-        const tipIntroElement = document.getElementById("tip-intro");
-        if (tipElement && tipIntroElement) {
-          const randomTip = tips[Math.floor(Math.random() * tips.length)];
-          tipElement.innerText = randomTip;
-          tipIntroElement.style.display = "block";
-        }
-      }
-
-      document.body.addEventListener(
-        "htmx:configRequest",
-        function (evt) {
-          if (evt.target.classList.contains("loading-modal-form")) {
-            console.log("configRequest");
-            displayRandomTip();
-            const loadingModal = document.getElementById("loading-modal");
-            if (loadingModal) {
-              loadingModal.style.display = "block";
-            }
-          }
-        },
-        true
-      );
-
-      document.body.addEventListener(
-        "htmx:afterOnLoad",
-        function (evt) {
-          if (evt.target.classList.contains("loading-modal-form")) {
-            console.log("afterOnLoad");
-            const loadingModal = document.getElementById("loading-modal");
-            if (loadingModal) {
-              loadingModal.style.display = "none";
-            }
-          }
-        },
-        true
-      );
-    </script>
+    {% block content %} {% block navbar %} {% endblock navbar %} {% block main
+    %} {% endblock main %} {% endblock content %}
   </body>
 </html>

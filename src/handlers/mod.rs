@@ -21,7 +21,7 @@ pub fn public_routes() -> Router<AppState> {
         .route("/landing", get(public::landing))
         .route("/demo", get(public::demo))
         .route("/signup", get(public::initial_signup).post(public::signup))
-        .route("/login", get(public::login))
+        .route("/login", get(public::login).post(public::login_attempt))
 }
 
 pub fn authenticated_routes() -> Router<AppState> {
@@ -30,7 +30,6 @@ pub fn authenticated_routes() -> Router<AppState> {
         .route("/classes", get(authenticated::classes))
         .route("/lesson", get(lesson::initial_lesson))
         .route("/lesson_builder", post(lesson::lesson_builder))
-        .route("/profile", get(authenticated::profile))
 }
 
 #[derive(Template)]

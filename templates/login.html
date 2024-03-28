@@ -1,52 +1,106 @@
 {% extends "base.html" %}
 {% block navbar %}
-    <div class="navbar bg-base-100 container">
-        <div class="flex-1">
-            <a href="/" class="btn btn-ghost normal-case text-2xl">LessonPlanner.ai</a>
-        </div>
-        <div class="flex-none">
-            <ul class="menu menu-horizontal px-1">
-                <li>
-                    <a href="/demo">Demo</a>
-                </li>
-                <li>
-                    <a href="/signup">Sign up</a>
-                </li>
-                <li>
-                    <a href="/login" class="underline decoration-2 underline-offset-8">Log in</a>
-                </li>
-            </ul>
-        </div>
+<div class="navbar bg-base-100 container">
+    <div class="flex-1">
+        <a href="/" class="btn btn-ghost normal-case text-2xl">LessonPlanner.ai</a>
     </div>
+    <div class="flex-none">
+        <ul class="menu menu-horizontal px-1">
+            <li>
+                <a href="/demo">Demo</a>
+            </li>
+            <li>
+                <a href="/signup">Sign up</a>
+            </li>
+            <li>
+                <a href="/login" class="underline decoration-2 underline-offset-8">Log in</a>
+            </li>
+        </ul>
+    </div>
+</div>
 {% endblock navbar %}
 {% block main %}
-    <div class="container mx-auto">
-        <h2 class="text-2xl font-extrabold text-center mb-4">Log In</h2>
-        <main class="bg-gray-100 flex items-center justify-center py-20">
-            <div class="max-w-md w-full bg-white rounded-lg overflow-hidden shadow-md p-6">
-                <form>
-                    <div class="mb-6">
-                        <label for="email" class="block mb-2 text-sm text-gray-800">Email</label>
-                        <input type="email"
-                               id="email"
-                               class="form-input w-full"
-                               placeholder="Enter your email">
+<div class="container mx-auto">
+    <h2 class="text-2xl font-extrabold text-center mb-4">Log In</h2>
+    <main class="bg-gray-100 flex items-center justify-center py-20">
+        <div class="max-w-md w-full bg-white rounded-lg overflow-hidden shadow-md p-6">
+            <form hx-post="/login" hx-trigger="submit">
+                <div class="mb-6">
+                    <label for="email" class="block mb-2 text-sm text-gray-800">Email</label>
+                    <input type="email"
+                           name="email"
+                           id="email"
+                           class="form-input w-full"
+                           placeholder="Enter your email">
+                </div>
+                <div class="mb-6">
+                    <label for="password" class="block mb-2 text-sm text-gray-800">Password</label>
+                    <input type="password"
+                           name="password"
+                           id="password"
+                           class="form-input w-full"
+                           placeholder="Enter your password">
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Log In</button>
+                </div>
+            </form>
+            <div id="login-error" class="text-red-500 text-center mt-2"></div>
+            <p class="mt-4 text-sm text-center text-gray-600">
+                New to LessonPlanner.AI? <a href="/signup" class="text-blue-500">Sign up!</a>
+            </p>
+        </div>
+
+        <!-- Login Success Modal -->
+        <div id="success-modal" class="fixed z-50 inset-0 overflow-y-auto" aria-labelledby="success-modal-title" role="dialog" aria-modal="true" style="display: none;">
+            <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true"></div>
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                <div class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                    <div class="sm:flex sm:items-start">
+                        <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900" id="success-modal-title">Login Successful!</h3>
+                            <div class="mt-2">
+                                <p>Redirecting to your account page...</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="mb-6">
-                        <label for="password" class="block mb-2 text-sm text-gray-800">Password</label>
-                        <input type="password"
-                               id="password"
-                               class="form-input w-full"
-                               placeholder="Enter your password">
-                    </div>
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Log In</button>
-                    </div>
-                </form>
-                <p class="mt-4 text-sm text-center text-gray-600">
-                    New to LessonPlanner.AI? <a href="/signup" class="text-blue-500">Sign up!</a>
-                </p>
+                </div>
             </div>
-        </main>
-    </div>
+        </div>
+
+    </main>
+</div>
+
+<script>
+    document.body.addEventListener('htmx:afterOnLoad', function(event) {
+        const xhr = event.detail.xhr;
+        
+        if (xhr.getResponseHeader('Content-Type').includes('application/json')) {
+            const response = JSON.parse(xhr.responseText);
+            
+            if (response.redirect) {
+                const successModal = document.getElementById("success-modal");
+                const successMessage = document.querySelector("#success-modal p");
+                successMessage.textContent = "Login successful! Redirecting to your account...";
+                
+                if (successModal) {
+                    successModal.style.display = "block";
+                }
+
+                setTimeout(function() {
+                    window.location.href = response.redirect;
+                    if (successModal) {
+                        successModal.style.display = "none";
+                    }
+                }, 2500);
+            }
+        } else if (xhr.status !== 200) {
+            const response = JSON.parse(xhr.responseText);
+            const errorMessage = response.error || "An error occurred. Please try again.";
+            document.getElementById('login-error').textContent = errorMessage;
+        }
+    });
+</script>
+
 {% endblock main %}

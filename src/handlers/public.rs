@@ -1,8 +1,8 @@
 use crate::{
-    db::create_user,
+    db::{create_user, get_user_by_email, verify_password},
     types::{AppState, NewUser},
 };
-use axum::{extract::State, Json};
+use axum::{extract::State, response::Redirect, Json};
 use serde::Deserialize;
 use serde_json::json;
 use std::convert::Infallible;
@@ -34,6 +34,28 @@ pub struct LoginTemplate;
 pub async fn login() -> impl IntoResponse {
     let template = LoginTemplate;
     HtmlTemplate(template)
+}
+
+#[derive(Deserialize)]
+pub struct LoginForm {
+    pub email: String,
+    pub password: String,
+}
+
+pub async fn login_attempt(
+    State(state): State<AppState>,
+    Form(login_form): Form<LoginForm>,
+) -> Result<impl IntoResponse, impl IntoResponse> {
+    match get_user_by_email(&state.db, &login_form.email).await {
+        Ok(user) => {
+            if verify_password(&login_form.password, &user.hashed_password) {
+                Ok(Json(json!({"redirect": "/account"})))
+            } else {
+                Err((StatusCode::UNAUTHORIZED, "Invalid email or password"))
+            }
+        }
+        Err(_) => Err((StatusCode::UNAUTHORIZED, "Invalid email or password")),
+    }
 }
 
 #[derive(Template)]

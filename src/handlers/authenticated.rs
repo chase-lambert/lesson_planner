@@ -18,12 +18,3 @@ pub async fn account() -> impl IntoResponse {
     let template = AccountTemplate;
     HtmlTemplate(template)
 }
-
-#[derive(Template)]
-#[template(path = "profile.html")]
-struct ProfileTemplate;
-
-pub async fn profile() -> impl IntoResponse {
-    let template = ProfileTemplate;
-    HtmlTemplate(template)
-}

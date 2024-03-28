@@ -1,20 +1,27 @@
-{% extends "base.html" %} {% block navbar %}
-<div class="navbar bg-base-100 container">
-  <div class="flex-1">
-    <a href="/classes" class="btn btn-ghost normal-case text-2xl">LessonPlanner.ai</a>
-  </div>
-  <div class="flex-none">
-    <ul class="menu menu-horizontal px-1">
-      <li><a href="/lesson">Lesson Builder</a></li>
-      <li><a href="/classes">Classes</a></li>
-      <li>
-        <a href="/account" class="underline decoration-2 underline-offset-8">Account</a>
-      </li>
-    </ul>
-  </div>
-</div>
-{% endblock %} {% block main %}
-
-<h2 class="text-2xl font-extrabold text-center">Account</h2>
-
-{% endblock %}
+{% extends "base.html" %}
+{% block navbar %}
+    <div class="navbar bg-base-100 container">
+        <div class="flex-1">
+            <a href="/classes" class="btn btn-ghost normal-case text-2xl">LessonPlanner.ai</a>
+        </div>
+        <div class="flex-none">
+            <ul class="menu menu-horizontal px-1">
+                <li>
+                    <a href="/lesson">Lesson Builder</a>
+                </li>
+                <li>
+                    <a href="/classes">Classes</a>
+                </li>
+                <li>
+                    <a href="/account" class="underline decoration-2 underline-offset-8">Account</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock navbar %}
+{% block main %}
+    <div class="container mx-auto">
+        <h2 class="text-2xl font-extrabold text-center mb-4">Account</h2>
+        <div class="bg-gray-100 p-8 rounded-lg shadow-md">account stuff here</div>
+    </div>
+{% endblock main %}

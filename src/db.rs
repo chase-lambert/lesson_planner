@@ -2,7 +2,7 @@ use crate::types::{NewUser, User};
 use anyhow::{Context, Result};
 use argon2::{
     password_hash::{rand_core::OsRng, SaltString},
-    Argon2, PasswordHasher,
+    Argon2, PasswordHash, PasswordHasher, PasswordVerifier,
 };
 use sqlx::{types::Uuid, PgPool};
 
@@ -51,19 +51,26 @@ pub async fn delete_user(pool: &PgPool, user_id: Uuid) -> Result<()> {
     Ok(())
 }
 
-pub async fn get_user_by_email(pool: PgPool, email: &str) -> Result<User> {
+pub async fn get_user_by_email(pool: &PgPool, email: &str) -> Result<User> {
     let user = sqlx::query_as!(User, "SELECT * FROM users WHERE email = $1", email)
-        .fetch_one(&pool)
+        .fetch_one(pool)
         .await
         .context("Could not find user")?;
 
     Ok(user)
 }
 
+pub fn verify_password(plain: &str, hashed: &str) -> bool {
+    match PasswordHash::new(hashed) {
+        Ok(parsed_hash) => Argon2::default()
+            .verify_password(plain.as_bytes(), &parsed_hash)
+            .is_ok(),
+        Err(_) => false,
+    }
+}
+
 #[cfg(test)]
 mod tests {
-    use argon2::{PasswordHash, PasswordVerifier};
-
     use super::*;
 
     #[test]
