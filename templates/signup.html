@@ -21,7 +21,8 @@
 
   <main class="bg-gray-100 flex items-center justify-center py-20">
     <div class="max-w-md w-full bg-white rounded-lg overflow-hidden shadow-md p-6">
-      <form hx-post="/signup" hx-trigger="submit">
+      <form hx-post="/signup">
+      <!-- <form> -->
         <div class="mb-6">
           <label for="first-name" class="block mb-2 text-sm text-gray-800">First Name</label>
           <input type="text" name="first_name" id="first-name" class="form-input w-full" placeholder="Enter your first name">
@@ -66,7 +67,7 @@
                         </h3>
                         <div class="mt-2">
                             <p>
-                                Signup successful! Redirecting to your new account page...
+                                Signup successful! Redirecting to the lesson builder...
                             </p>
                         </div>
                     </div>
@@ -79,17 +80,18 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const signupForm = document.querySelector("form[hx-post='/signup']");
-        signupForm.addEventListener("submit", function(event) {
+    document.body.addEventListener('htmx:beforeRequest', function(event) {
+        const target = event.target;
+        if (target.matches("form[hx-post='/signup']")) {
             const password = document.getElementById("password").value;
             const confirmPassword = document.getElementById("confirm-password").value;
             if (password !== confirmPassword) {
-                event.preventDefault(); // Prevent form from submitting
+                event.preventDefault(); // Cancel the htmx request
                 alert("Passwords do not match.");
             }
-        });
+        }
     });
+
 
     document.body.addEventListener('htmx:afterOnLoad', function(event) {
         const xhr = event.detail.xhr;

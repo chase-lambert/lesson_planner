@@ -49,7 +49,7 @@ pub async fn login_attempt(
     match get_user_by_email(&state.db, &login_form.email).await {
         Ok(user) => {
             if verify_password(&login_form.password, &user.hashed_password) {
-                Ok(Json(json!({"redirect": "/account"})))
+                Ok(Json(json!({"redirect": "/lesson"})))
             } else {
                 Err((StatusCode::UNAUTHORIZED, "Invalid email or password"))
             }
@@ -96,7 +96,7 @@ pub async fn signup(
     match create_user(&state.db, form_data.user).await {
         Ok(_) => {
             tracing::debug!("user created!");
-            Ok(SignupResponse::Json(Json(json!({"redirect": "/account"}))))
+            Ok(SignupResponse::Json(Json(json!({"redirect": "/lesson"}))))
         }
         Err(_) => {
             let template = SignupTemplate;
