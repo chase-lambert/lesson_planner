@@ -23,9 +23,8 @@ pub async fn create_user(pool: &PgPool, new_user: NewUser) -> Result<User> {
     let user_id = Uuid::new_v4();
 
     sqlx::query!(
-        "INSERT INTO users (id, username, first_name, last_name, email, hashed_password) VALUES ($1, $2, $3, $4, $5, $6)",
+        "INSERT INTO users (id, first_name, last_name, email, hashed_password) VALUES ($1, $2, $3, $4, $5)",
         user_id,
-        new_user.username,
         new_user.first_name,
         new_user.last_name,
         new_user.email,
@@ -37,7 +36,6 @@ pub async fn create_user(pool: &PgPool, new_user: NewUser) -> Result<User> {
 
     Ok(User {
         id: user_id,
-        username: new_user.username,
         first_name: new_user.first_name,
         last_name: new_user.last_name,
         email: new_user.email,

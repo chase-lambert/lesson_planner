@@ -10,7 +10,6 @@ pub struct AppState {
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct NewUser {
-    pub username: String,
     pub first_name: String,
     pub last_name: String,
     pub email: String,
@@ -20,7 +19,6 @@ pub struct NewUser {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct User {
     pub id: Uuid,
-    pub username: String,
     pub first_name: String,
     pub last_name: String,
     pub email: String,

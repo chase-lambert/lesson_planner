@@ -7,7 +7,6 @@ use crate::types::NewUser;
 
 pub async fn create_dummy_user(pool: &PgPool) -> Result<()> {
     let dummy_user = NewUser {
-        username: "johndoe".to_string(),
         first_name: "John".to_string(),
         last_name: "Doe".to_string(),
         email: "john@example.com".to_string(),

@@ -70,14 +70,11 @@ pub async fn signup(
     State(state): State<AppState>,
     Form(form_data): Form<SignupFormData>,
 ) -> Result<SignupResponse, Infallible> {
-    tracing::debug!(
-        "creating user with form data: {:?}",
-        form_data.user.username
-    );
+    tracing::debug!("creating user with form data: {:?}", form_data.user.email);
     match create_user(&state.db, form_data.user).await {
         Ok(_) => {
             tracing::debug!("user created!");
-            Ok(SignupResponse::Json(Json(json!({"redirect": "/profile"}))))
+            Ok(SignupResponse::Json(Json(json!({"redirect": "/account"}))))
         }
         Err(_) => {
             let template = SignupTemplate;
