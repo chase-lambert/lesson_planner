@@ -2,7 +2,7 @@ use crate::{
     db::{create_user, get_user_by_email, verify_password},
     types::{AppState, NewUser},
 };
-use axum::{extract::State, response::Redirect, Json};
+use axum::{extract::State, Json};
 use serde::Deserialize;
 use serde_json::json;
 use std::convert::Infallible;
